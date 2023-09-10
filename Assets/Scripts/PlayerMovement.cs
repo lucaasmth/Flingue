@@ -27,11 +27,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _mousePos = cameraRay.GetPoint(rayLength);
         }
+        transform.LookAt(new Vector3(_mousePos.x, transform.position.y, _mousePos.z));
     }
 
     private void FixedUpdate()
     {
         _rb.MovePosition(_rb.position + _movement * (moveSpeed * Time.deltaTime));
-        transform.LookAt(new Vector3(_mousePos.x, transform.position.y, _mousePos.z));
     }
 }
