@@ -19,6 +19,8 @@ public class FieldOfView : MonoBehaviour
     public int edgeResolveIterations;
 
     public MeshFilter viewMeshFilter;
+
+    public Shader standardShader;
     
     private Mesh _viewMesh;
 
@@ -93,7 +95,7 @@ public class FieldOfView : MonoBehaviour
         vertices[0] = Vector3.zero;
         for (int i = 0; i < vertexCount - 1; i++)
         {
-            vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]);
+            vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]);// + Vector3.forward * .15f;
 
             if (i >= vertexCount - 2) continue;
             triangles[i * 3] = 0;
@@ -138,7 +140,9 @@ public class FieldOfView : MonoBehaviour
     private ViewCastInfo ViewCast(float globalAngle)
     {
         Vector3 dir = DirFromAngle(globalAngle, true);
-        if (Physics.Raycast(transform.position, dir, out var hit, viewRadius, obstacleMask))
+        Vector3 origin = transform.position;
+        origin.y += 0.5f;
+        if (Physics.Raycast(origin, dir, out var hit, viewRadius, obstacleMask))
         {
             return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
         }
