@@ -9,17 +9,19 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _movement;
     private Vector3 _mousePos;
     private PlayerHealth _health;
+    private GameMaster _gameMaster;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _cam = FindObjectOfType<Camera>();
         _health = GetComponent<PlayerHealth>();
+        _gameMaster = FindObjectOfType<GameMaster>();
     }
 
     void Update()
     {
-        if (_health.IsDead) return;
+        if (_health.IsDead || _gameMaster.IsPaused) return;
 
         _movement.x = Input.GetAxisRaw("Horizontal");
         _movement.z = Input.GetAxisRaw("Vertical");
