@@ -73,4 +73,10 @@ public class EnemyFieldOfView : MonoBehaviour
         if (!angleIsGlobal) angleInDegrees += transform.eulerAngles.y;
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
+
+    public void SeePlayer()
+    {
+        CanSeePlayer = true;
+        LastPlayerPosition = _playerRef.transform.position;
+    }
 }

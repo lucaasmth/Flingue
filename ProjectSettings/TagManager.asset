@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Obstacle
   - Floor
+  - Music
+  - Spawn
+  - record
   layers:
   - Default
   - TransparentFX

@@ -23,7 +23,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.Equals(_owner)) return;
         
-        
         Health health = other.gameObject.GetComponent<Health>();
         if (health != null)
         {
@@ -34,6 +33,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("Obstacle"))
         {
+            Debug.Log(other.gameObject);
             Destroy(gameObject, 0.05f);
             GetComponent<Renderer>().enabled = false;
         } 

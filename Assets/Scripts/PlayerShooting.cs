@@ -13,15 +13,19 @@ public class PlayerShooting : MonoBehaviour
     private bool _canShoot = true;
 
     private Health _health;
+    private GameMaster _gameMaster;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         _health = GetComponent<Health>();
+        _gameMaster = FindObjectOfType<GameMaster>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !_health.IsDead && _canShoot)
+        if (Input.GetMouseButtonDown(0) && !_health.IsDead && !_gameMaster.IsPaused && !_gameMaster.IsGameFinished && _canShoot)
         {
             Shoot();
         }
@@ -30,6 +34,7 @@ public class PlayerShooting : MonoBehaviour
     private void Shoot()
     {
         _canShoot = false;
+        _audioSource.Play();
         GameObject flash = Instantiate(muzzleFlash, firePoint.position, firePoint.rotation, firePoint);
         Destroy(flash, .05f);
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

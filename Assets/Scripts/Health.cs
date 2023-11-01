@@ -15,6 +15,11 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        EnemyFieldOfView enemyFieldOfView = GetComponent<EnemyFieldOfView>();
+        if (enemyFieldOfView != null)
+        {
+            enemyFieldOfView.SeePlayer();
+        }
         _currentHealth -= damage;
         if (_currentHealth <= 0) Die();
     }
